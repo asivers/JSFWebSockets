@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+  <meta http-equiv="Content-Type" content="text/html"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <title>JSF and WebSocket Demo using JEE7</title>
+</h:head>
+
+<h:body>
+
+  <div class="container" id="elcenterform" style="top:15%">
+    <div class="row" style="margin-top:7px; margin-bottom:5px; text-align:center">
+      <div class="col-12" style="text-align:center; color:#ddd">
+        <h3 id="header"></h3>
+      </div>
+    </div>
+
+    <div class="row" style="margin-left:1px; margin-right:1px; margin-bottom:10px; min-height:47px; border:1px solid silver;">
+      <div class="col-6 offset-1 my-auto">
+        <h:outputText id="train1" value="" style="font-weight:500; font-size:24px; color:#99f"></h:outputText>
+      </div>
+      <div class="col-4 offset-1 my-auto">
+        <h:outputText id="time1" value="" style="font-weight:500; font-size:30px; color:#f77"></h:outputText>
+      </div>
+    </div>
+
+    <div class="row" style="margin-left:1px; margin-right:1px; margin-bottom:10px; min-height:47px; border:1px solid silver;">
+      <div class="col-6 offset-1 my-auto">
+        <h:outputText id="train2" value="" style="font-weight:500; font-size:24px; color:#99f"></h:outputText>
+      </div>
+      <div class="col-4 offset-1 my-auto">
+        <h:outputText id="time2" value="" style="font-weight:500; font-size:30px; color:#f77"></h:outputText>
+      </div>
+    </div>
+
+    <div class="row" style="margin-left:1px; margin-right:1px; margin-bottom:10px; min-height:47px; border:1px solid silver;">
+      <div class="col-6 offset-1 my-auto">
+        <h:outputText id="train3" value="" style="font-weight:500; font-size:24px; color:#99f"></h:outputText>
+      </div>
+      <div class="col-4 offset-1 my-auto">
+        <h:outputText id="time3" value="" style="font-weight:500; font-size:30px; color:#f77"></h:outputText>
+      </div>
+    </div>
+
+    <div class="row" style="margin-left:1px; margin-right:1px; margin-bottom:10px; min-height:47px; border:1px solid silver;">
+      <div class="col-6 offset-1 my-auto">
+        <h:outputText id="train4" value="" style="font-weight:500; font-size:24px; color:#99f"></h:outputText>
+      </div>
+      <div class="col-4 offset-1 my-auto">
+        <h:outputText id="time4" value="" style="font-weight:500; font-size:30px; color:#f77"></h:outputText>
+      </div>
+    </div>
+
+    <div class="row" style="margin-left:1px; margin-right:1px; margin-bottom:10px; min-height:47px; border:1px solid silver;">
+      <div class="col-6 offset-1 my-auto">
+        <h:outputText id="train5" value="" style="font-weight:500; font-size:24px; color:#99f"></h:outputText>
+      </div>
+      <div class="col-4 offset-1 my-auto">
+        <h:outputText id="time5" value="" style="font-weight:500; font-size:30px; color:#f77"></h:outputText>
+      </div>
+    </div>
+
+    <div class="row" style="margin-left:1px; margin-right:1px; margin-bottom:10px; min-height:47px; border:1px solid silver;">
+      <div class="col-6 offset-1 my-auto">
+        <h:outputText id="train6" value="" style="font-weight:500; font-size:24px; color:#99f"></h:outputText>
+      </div>
+      <div class="col-4 offset-1 my-auto">
+        <h:outputText id="time6" value="" style="font-weight:500; font-size:30px; color:#f77"></h:outputText>
+      </div>
+    </div>
+
+    <div class="row" style="margin-left:1px; margin-right:1px; margin-bottom:10px; min-height:47px; border:1px solid silver;">
+      <div class="col-6 offset-1 my-auto">
+        <h:outputText id="train7" value="" style="font-weight:500; font-size:24px; color:#99f"></h:outputText>
+      </div>
+      <div class="col-4 offset-1 my-auto">
+        <h:outputText id="time7" value="" style="font-weight:500; font-size:30px; color:#f77"></h:outputText>
+      </div>
+    </div>
+
+    <div class="row" style="margin-left:1px; margin-right:1px; margin-bottom:10px">
+      <div class="col-1 offset-2 my-auto text-center">
+        <h:button id="prevP" onclick="prevP(); return false;" value="prev" class="btn btn-primary pt-1 pb-1 pl-2 pr-2"></h:button>
+      </div>
+      <div class="col-4 offset-1 offset-right-1 my-auto text-center">
+        <h:outputText id="currP" value="Page 1" style="font-weight:500; font-size:20px; color:#ccc"></h:outputText>
+      </div>
+      <div class="col-1 offset-right-2 my-auto text-center">
+        <h:button id="nextP" onclick="nextP(); return false;" value="next" class="btn btn-primary pt-1 pb-1 pl-2 pr-2"></h:button>
+      </div>
+    </div>
+
+  </div>
+
+</h:body>
+
+<script type="text/javascript">
+  var this_station = "Kavgolovo";
+  var host = "ws://localhost:8282/notification";
+  var wSocket = new WebSocket(host);
+  var allPages = 0;
+  var page = 1;
+
+  function prevP() {
+    page = page - 1;
+    wSocket.send(this_station + "/" + page);
+  }
+  function nextP() {
+    page = page + 1
+    wSocket.send(this_station + "/" + page);
+  }
+
+  wSocket.onmessage = function(event) {
+    document.getElementById("header").innerHTML = "" + this_station + " trains:";
+    var received_msg = event.data;
+    if (received_msg == "start") { wSocket.send(this_station + "/" + page); }
+    else {
+      var res = received_msg.split("/");
+      var station = res.slice(0, 1);
+      if (station == this_station) {
+        allPages = res.slice(1, 2);
+        if (res.slice(2, 3) != "") {
+          document.getElementById("train1").innerHTML = "Train " + res.slice(2, 3);
+          document.getElementById("time1").innerHTML = res.slice(3, 4);
+        }
+        else {
+          document.getElementById("train1").innerHTML = "";
+          document.getElementById("time1").innerHTML = "";
+        }
+        if (res.slice(4, 5) != "") {
+          document.getElementById("train2").innerHTML = "Train " + res.slice(4, 5);
+          document.getElementById("time2").innerHTML = res.slice(5, 6);
+        }
+        else {
+          document.getElementById("train2").innerHTML = "";
+          document.getElementById("time2").innerHTML = "";
+        }
+        if (res.slice(6, 7) != "") {
+          document.getElementById("train3").innerHTML = "Train " + res.slice(6, 7);
+          document.getElementById("time3").innerHTML = res.slice(7, 8);
+        }
+        else {
+          document.getElementById("train3").innerHTML = "";
+          document.getElementById("time3").innerHTML = "";
+        }
+        if (res.slice(8, 9) != "") {
+          document.getElementById("train4").innerHTML = "Train " + res.slice(8, 9);
+          document.getElementById("time4").innerHTML = res.slice(9, 10);
+        }
+        else {
+          document.getElementById("train4").innerHTML = "";
+          document.getElementById("time4").innerHTML = "";
+        }
+        if (res.slice(10, 11) != "") {
+          document.getElementById("train5").innerHTML = "Train " + res.slice(10, 11);
+          document.getElementById("time5").innerHTML = res.slice(11, 12);
+        }
+        else {
+          document.getElementById("train5").innerHTML = "";
+          document.getElementById("time5").innerHTML = "";
+        }
+        if (res.slice(12, 13) != "") {
+          document.getElementById("train6").innerHTML = "Train " + res.slice(12, 13);
+          document.getElementById("time6").innerHTML = res.slice(13, 14);
+        }
+        else {
+          document.getElementById("train6").innerHTML = "";
+          document.getElementById("time6").innerHTML = "";
+        }
+        if (res.slice(14, 15) != "") {
+          document.getElementById("train7").innerHTML = "Train " + res.slice(14, 15);
+          document.getElementById("time7").innerHTML = res.slice(15, 16);
+        }
+        else {
+          document.getElementById("train7").innerHTML = "";
+          document.getElementById("time7").innerHTML = "";
+        }
+        refreshPages();
+      }
+    }
+  };
+
+  function refreshPages() {
+    document.getElementById("currP").innerHTML = "Page " + page;
+
+    if (page == 1) { document.getElementById("prevP").style.visibility = "hidden"; }
+    else { document.getElementById("prevP").style.visibility = "visible" }
+
+    if (page == allPages) { document.getElementById("nextP").style.visibility = "hidden"; }
+    else { document.getElementById("nextP").style.visibility = "visible" }
+  }
+
+  wSocket.onclose = function() {};
+</script>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</html>
