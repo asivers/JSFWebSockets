@@ -15,7 +15,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="JSFWebSockets" options="-endorseddirs C:\Users\siver\Desktop\prog\java_school\jsf_two_2\JSFWebSockets\target/endorsed" />
+      <module name="JSFWebSockets" options="-endorseddirs C:\Users\siver\Desktop\prog\repositories\JSFWebSockets\target/endorsed" />
     </option>
   </component>
 </project>
