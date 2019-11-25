@@ -1,0 +1,9 @@
+JSFWebSockets\config\WebConfig.class
+JSFWebSockets\controller\MainController.class
+JSFWebSockets\config\WebSocketConfigurator.class
+JSFWebSockets\websockets\NotificationEndPoint.class
+JSFWebSockets\config\CustomSpringConfigurator.class
+JSFWebSockets\config\MessagingListenerConfiguration.class
+JSFWebSockets\messaging\MessageReceiver.class
+JSFWebSockets\config\AppInitializer.class
+JSFWebSockets\bean\NotificationManagedBean.class

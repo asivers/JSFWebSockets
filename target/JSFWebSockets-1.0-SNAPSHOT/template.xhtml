@@ -100,26 +100,29 @@
 </h:body>
 
 <script type="text/javascript">
+  var main_socket = new WebSocket("ws://localhost:8282/notification");
   var this_station = "Dachnoe";
-  var host = "ws://localhost:8181/notification";
-  var wSocket = new WebSocket(host);
+  var this_host = "ws://localhost:8181/notification";
+  var this_socket = new WebSocket(this_host);
   var allPages = 0;
   var page = 1;
 
   function prevP() {
     page = page - 1;
-    wSocket.send(this_station + "/" + page);
+    main_socket.send(this_station + "/" + page);
   }
   function nextP() {
     page = page + 1
-    wSocket.send(this_station + "/" + page);
+    main_socket.send(this_station + "/" + page);
   }
 
-  wSocket.onopen = function(event) {
-    wSocket.send(this_station + "/" + page)
+  this_socket.onopen = function() {};
+
+  main_socket.onopen = function() {
+    main_socket.send(this_station + "/" + page)
   }
 
-  wSocket.onmessage = function(event) {
+  this_socket.onmessage = function(event) {
     document.getElementById("header").innerHTML = "" + this_station + " trains:";
     var received_msg = event.data;
     var res = received_msg.split("/");
@@ -196,7 +199,8 @@
     else { document.getElementById("nextP").style.visibility = "visible" }
   }
 
-  wSocket.onclose = function() {};
+  this_socket.onclose = function() {};
+  main_socket.onclose = function() {};
 </script>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

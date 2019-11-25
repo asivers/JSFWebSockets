@@ -12,11 +12,28 @@ import javax.websocket.Session;
 @ViewScoped
 public class NotificationManagedBean implements Serializable {
 
+  /**
+   * Managed Bean for output on display.
+   */
+
   public NotificationManagedBean() {
   }
   
   String message;
-  
+
+  /**
+   * Sets current message.
+   *
+   * @param message message
+   */
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  /**
+   * Outputs message on display.
+   * template.xhtml -> javascript 'this_socket.on_message'
+   */
   public void sendNotification()  {
     List<Session> list = NotificationEndPoint.getSessions();
     for (Session s : list) {
@@ -24,10 +41,6 @@ public class NotificationManagedBean implements Serializable {
         s.getAsyncRemote().sendText(message);
       }
     }
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
   }
   
 }

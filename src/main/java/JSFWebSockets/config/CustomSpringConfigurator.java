@@ -12,6 +12,7 @@ public class CustomSpringConfigurator extends ServerEndpointConfig.Configurator 
     /**
      * Spring application context.
      */
+
     private static volatile BeanFactory context;
 
     @Override

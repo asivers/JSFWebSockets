@@ -18,15 +18,21 @@ import java.util.Properties;
 
 @Configuration
 @EnableWebMvc
-@Import({MessagingConfiguration.class, MessagingListenerConfiguration.class})
+@Import(MessagingListenerConfiguration.class)
 @ComponentScan(basePackages = {"JSFWebSockets", "JSFWebSockets.websockets"})
 public class WebConfig implements WebMvcConfigurer {
 
+    /**
+     * Resource folder.
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/res/**").addResourceLocations("/res/");
     }
 
+    /**
+     * Path and suffix for xhtml.
+     */
     @Bean
     ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -34,17 +40,5 @@ public class WebConfig implements WebMvcConfigurer {
         viewResolver.setSuffix(".xhtml");
         return viewResolver;
     }
-
-
-
-//    @Bean
-//    HandlerExceptionResolver customExceptionResolver () {
-//        SimpleMappingExceptionResolver s = new SimpleMappingExceptionResolver();
-//        Properties p = new Properties();
-//        p.setProperty(NoHandlerFoundException.class.getName(), "/404");
-//        s.setExceptionMappings(p);
-//        s.setOrder(Ordered.HIGHEST_PRECEDENCE);
-//        return s;
-//    }
 
 }
