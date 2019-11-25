@@ -12,15 +12,13 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-
+/**
+ * EndPoint for session adding.
+ */
 @Service
 @Configurable
 @ServerEndpoint(value = "/notification", configurator = CustomSpringConfigurator.class)
 public class NotificationEndPoint implements Serializable {
-
-  /**
-   * EndPoint for session adding.
-   */
 
   private static final Logger log = Logger.getLogger(NotificationEndPoint.class);
 

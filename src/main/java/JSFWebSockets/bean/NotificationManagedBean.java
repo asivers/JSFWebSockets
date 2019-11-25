@@ -8,13 +8,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.view.ViewScoped;
 import javax.websocket.Session;
 
+/**
+ * Managed Bean for output on display.
+ */
 @ManagedBean(name = "notificationManagedBean")
 @ViewScoped
 public class NotificationManagedBean implements Serializable {
-
-  /**
-   * Managed Bean for output on display.
-   */
 
   public NotificationManagedBean() {
   }

@@ -14,12 +14,11 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
+/**
+ * Application Initializer.
+ */
 @Configuration
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-
-    /**
-     * Application Initializer.
-     */
 
     @Override
     protected Class<?>[] getRootConfigClasses() {

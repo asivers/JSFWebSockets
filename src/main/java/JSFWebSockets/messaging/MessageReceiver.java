@@ -7,12 +7,11 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
+/**
+ * Active MQ message receiver.
+ */
 @Component
 public class MessageReceiver {
-
-	/**
-	 * Active MQ message receiver.
-	 */
 
 	private static final Logger log = Logger.getLogger(MessageReceiver.class);
 
